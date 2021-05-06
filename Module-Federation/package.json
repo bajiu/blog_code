@@ -1,0 +1,19 @@
+{
+  "name": "module-federation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dist": "npm run dist:app1 && npm run dist:app2",
+    "dist:app1": "node ./app_1/webpack.config.js",
+    "dist:app2": "node ./app_2/webpack.config.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.35.1"
+  },
+  "dependencies": {
+    "html-webpack-plugin": "^5.3.1"
+  }
+}
