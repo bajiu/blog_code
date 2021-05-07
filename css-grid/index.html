@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grid 布局</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            text-align: center;
+        }
+
+        li {
+            list-style: none;
+            text-align: center;
+            font-size: 200%;
+            color: #fff;
+        }
+
+        ul {
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        .demo li:nth-child(1) {
+            background: #19CAAD;
+        }
+
+        .demo li:nth-child(2) {
+            background: #8CC7B5;
+        }
+
+        .demo li:nth-child(3) {
+            background: #D1BA74;
+        }
+
+        .demo li:nth-child(4) {
+            background: #BEE7E9;
+        }
+
+        .demo li:nth-child(5) {
+            background: #E6CEAC;
+        }
+
+        .demo li:nth-child(6) {
+            background: #ECAD9E;
+        }
+        .box {
+            background-color: #444;
+            color: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            font-size: 150%;
+        }
+    </style>
+    <style>
+        .demo1 {
+            display: inline-grid;
+            /* 列宽 200px 100px 200px */
+            grid-template-columns: 200px 100px 200px;
+            /* 中间网格 */
+            grid-gap: 5px;
+            /*  行高 50px 20px  */
+            grid-template-rows: 50px 50px;
+        }
+
+        .demo2 {
+            display: grid;
+            grid-gap: 5px;
+            grid-template-columns: repeat(auto-fill, 200px);
+            grid-template-rows: 50px 60px;
+        }
+
+        .demo3 {
+            display: grid;
+            grid-gap: 5px;
+            grid-template-columns: 200px 1fr 2fr;
+            grid-template-rows: 50px 60px;
+        }
+
+        .demo4 {
+            display: grid;
+            grid-gap: 5px;
+            grid-template-columns: 1fr 1fr minmax(300px, 2fr);
+            grid-template-rows: 50px 60px;
+        }
+
+        .demo5 {
+            display: grid;
+            grid-gap: 5px;
+            grid-template-columns: 200px auto 200px;
+            grid-template-rows: 50px 60px;
+        }
+
+        .demo6 {
+            display: grid;
+            grid-gap: 10px;
+            grid-template-columns: 120px  120px  120px;
+            grid-template-areas:
+                ". header  header"
+                "sidebar content content";
+            background-color: #fff;
+            color: #444;
+        }
+
+        .sidebar {
+            grid-area: sidebar;
+        }
+
+        .content {
+            grid-area: content;
+        }
+
+        .header {
+            grid-area: header;
+        }
+        .demo7 {
+            display: grid;
+            grid-gap: 5px;
+            grid-template-columns: 200px auto 200px;
+            grid-template-rows: 50px 60px;
+            justify-items: end;
+        }
+        .demo7 li:nth-child(1) {
+            justify-items: start;
+        }
+
+
+
+    </style>
+</head>
+<body>
+<ul class="demo1 demo">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+</ul>
+<ul class="demo2 demo">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+</ul>
+<ul class="demo3 demo">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+</ul>
+<ul class="demo4 demo">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+</ul>
+<ul class="demo5 demo">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+</ul>
+<div class="demo6">
+    <div class="box header">Header</div>
+    <div class="box sidebar">Sidebar</div>
+    <div class="box content">Content</div>
+</div>
+<ul class="demo7 demo">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+</ul>
+</body>
+</html>
