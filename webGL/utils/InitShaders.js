@@ -89,7 +89,7 @@ const loadShader = (gl, type, source) => {
     // 检查着色器编译状态
     const compiled = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
     if (!compiled) {
-        var error = gl.getShaderInfoLog(shader);
+        const error = gl.getShaderInfoLog(shader);
         console.log('着色器编译失败: ' + error);
         gl.deleteShader(shader);
         return null;

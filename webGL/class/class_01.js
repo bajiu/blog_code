@@ -1,3 +1,10 @@
+/**
+ *  2021/05/11
+ *  webgl 基础 顶点着色器, 片元着色器
+ *  画个点儿
+ */
+
+
 const canvas = document.getElementById('webgl');
 
 const gl = canvas.getContext('webgl');
