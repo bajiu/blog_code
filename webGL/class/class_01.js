@@ -5,7 +5,7 @@
  */
 
 
-const canvas = document.getElementById('webgl');
+let canvas = document.getElementById('webgl');
 
 const gl = canvas.getContext('webgl');
 

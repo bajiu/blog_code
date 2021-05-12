@@ -57,7 +57,7 @@ const draw_attribute = () => {
         return;
     }
     // 将指定位置传递个 attribute 变量
-    gl.vertexAttrib3f(a_Position, 0.0, 0.0, 0.0);
+    gl.vertexAttrib3f(a_Position, 0.1, 0.1, 0.0);
     // gl.vertexAttrib3f(location, v0, v1, v2)
     // location 制定修改的 attribute 变量的储存位置
     // v0, v1, v2 分别为 attribute 变量对应三个分量的值
@@ -66,13 +66,45 @@ const draw_attribute = () => {
     // - `INVALID_VALUE` (location 大于等于 attribute 变量的最大数目 默认256字节)
 
 
+    // gl.vertexAttrib3f() 同族函数
+    // 该系列的函数的任务就是从 JavaScript 向顶点着色器中的 attribute 变量传值(v1, v2 默认传0.0 , v3默认 1.0)
+    // gl.vertexAttrib1f(location, v0)
+    // gl.vertexAttrib2f(location, v0, v1)
+    // gl.vertexAttrib3f(location, v0, v1, v2)
+    // gl.vertexAttrib4f(location, v0, v1, v2, v3)
 
+
+    // gl.vertexAttrib`(基础函数名)`3`(参数个数)`f`(参数类型: 'f' 表示浮点数, 'i' 表示整数)`
+
+    // const position = new Float32Array([1.0, 2.0, 3.0, 1.0])
+    // gl.vertexAttribute4fv(a_Position, position)
+
+
+    gl.clear(gl.COLOR_BUFFER_BIT)
 
     gl.drawArrays(gl.POINTS, 0, 1);
 
 
+    // 坐标数组
+    const g_points = [];
+    // 点击事件
+    const click = (event, gl, canvas) => {
+        const x = event.clientX; // X坐标
+        const y = event.clientY; // Y坐标
+        const rect = event.target.getBoundingClientRect();
+
+
+    }
+    canvas.onmousedown = (event) => {
+
+        click(event, gl, canvas, a_Position);
+
+    }
 }
+
 draw_attribute()
+
+
 
 
 
