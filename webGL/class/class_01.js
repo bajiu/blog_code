@@ -26,7 +26,7 @@ gl.clear(gl.COLOR_BUFFER_BIT);
 
 
 // 画一个点
-const drawPoint = () => {
+const draw_point = () => {
     // 绘制顶点着色器 GLSL ES语言
     const VSHADER_SOURCE =
         `
@@ -53,11 +53,16 @@ const drawPoint = () => {
     // 前面洗过了这里就不洗了
     // gl.clear(gl.COLOR_BUFFER_BIT);
 
+    // gl.drawArrays(mode, first, count)
+    // mode 指定绘制方式  接受以下常量符号:
+    // | gl.POINTS | gl.LINES | gl.LINE_STRIP | gl.LINE_LOOP | gl.TRIANGLES | gl.TRIANGLE_STRIP | gl.TRIANGLE_FAN
+    // 指定从那个顶点开始绘制 (整型数)
+    // 指定绘制需要用到多少个顶点 (整型数)
     gl.drawArrays(gl.POINTS, 0, 1);
 
 
 }
-drawPoint();
+draw_point();
 
 
 
