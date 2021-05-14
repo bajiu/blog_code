@@ -7,8 +7,6 @@
 // 变换(transformations)
 // 仿射变换(affine transformations)
 
-
-
 // 顶点着色器需要的数据，可以通过以下三种方式获得
 // - `Attributes` 属性 (从缓冲中获取的数据)
 // - `Uniforms` 全局变量 (在一次绘制中对所有顶点保持一致值)
