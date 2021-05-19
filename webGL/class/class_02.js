@@ -37,9 +37,21 @@ const draw_attribute = () => {
     `;
     const FSHADER_SOCUCE =
         `
+        // 确定了GPU在计算浮点数时使用的精度
+        // precision mediump float;
+        //     ｜        |    
+        //    精度     中精度(P)
+        // 精度:  
+        // highp   高精度 对于顶点位置
+        // mediump 中精度 对于纹理坐标
+        // lowp    低精度 对于颜色
+        
+        // 某些系统根本不支持highp，这将导致代码在这些系统上根本无法工作
+        // 尽可能在WebGL中使用中级精度
         
         
         precision mediump float;
+        
         uniform vec4 u_FragColor;
         
         void main() {
