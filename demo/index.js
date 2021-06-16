@@ -66,6 +66,9 @@ initShaders(gl, VSHADER, FSHADER);
 // vertex data
 const vertexBuffer = gl.createBuffer();
 gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+
+
+
 // TODO posVertex
 gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(posVertex), gl.STATIC_DRAW);
 
