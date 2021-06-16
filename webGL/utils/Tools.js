@@ -20,7 +20,6 @@ const setAttributeFromBuffer = (gl, name, size = 2, stride = 0, offset = 0) => {
     gl.enableVertexAttribArray(attribute);
 }
 
-
 const draw = (gl, size) => {
     gl.drawArrays(gl.TRIANGLES, 0, size);
 }
