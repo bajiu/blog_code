@@ -100,8 +100,10 @@ const loadShader = (gl, type, source) => {
 
 window.gl = (() => {
     const canvas = document.getElementById('webgl');
-    const gl = canvas.getContext('webgl');
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    canvas.preserveDrawingBuffer = true;
+    const gl = canvas.getContext('webgl',{preserveDrawingBuffer:true});
+    // gl.clearColor(0.0, 0.0, 0.0, 1.0);
+    gl.clearColor(0.0, 0.0, 0.0, 0.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
     return gl;
 })
