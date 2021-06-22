@@ -8,37 +8,52 @@
 function isPowerOf2(value) {
     return (value & (value - 1)) === 0;
 }
+
+let gl_texUint0 = false;
+let gl_texUint1 = false;
 const loadTexture = (gl, n, texture,u_Sampler, image, unitNum = 0) => {
     // 对纹理图像进行 Y轴 反转
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
     // 开启 0-7号纹理单元 (在使用纹理之前, 需要激活它)
     const textureUnitName = `TEXTURE${unitNum}`
     console.log(unitNum)
+
+
+
+    console.log(textureUnitName)
+    unitNum === 0 && (gl_texUint0 = true);
+    unitNum === 1 && (gl_texUint1 = true);
     gl.activeTexture(gl[textureUnitName]);
     // 向 target 绑定纹理对象
     gl.bindTexture(gl.TEXTURE_2D, texture);
     // 配置纹理参数
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
     // 检查每个维度是否是 2 的幂
+    console.log(image.width)
+    console.log(image.height)
     // if (isPowerOf2(image.width) && isPowerOf2(image.height)) {
     //     // 是 2 的幂，一般用贴图
     //     gl.generateMipmap(gl.TEXTURE_2D);
     // } else {
-    //     // 不是 2 的幂，关闭贴图并设置包裹模式（不需要重复）为到边缘
-    //     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-    //     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-    //     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    // //     // 不是 2 的幂，关闭贴图并设置包裹模式（不需要重复）为到边缘
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+        gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
     // }
 
     // 将纹理图像分配给纹理对象
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, image);
 
     // 将 0号纹理传递给着色器
-    gl.uniform1i(u_Sampler, 0);
+    gl.uniform1i(u_Sampler, unitNum);
 
     gl.clear(gl.COLOR_BUFFER_BIT);
 
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, n);
+    console.log(gl_texUint0)
+    console.log(gl_texUint1)
+    if(gl_texUint0 && gl_texUint1) {
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, n);
+    }
 
 }
 

@@ -12,8 +12,6 @@ navigator.mediaDevices.getUserMedia(constraints)
     .then((stream) => {
         console.log(stream.getVideoTracks()[0])
         video.srcObject = stream;
-
-
         video.onloadedmetadata = function(e) {
             video.play();
         };

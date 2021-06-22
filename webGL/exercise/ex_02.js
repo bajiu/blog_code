@@ -1,27 +1,48 @@
 /**
- *  2021/06/16
- *  播放视频(顶点视频拉伸 + 截图)
+ *  2021/06/21
+ *  直播视频修改
  */
 
-const getVideo = () => {
+
+const getLive = () => {
+    const constraints = {
+        audio: false,
+        video: {
+            width: 1280,
+            height: 720
+        }
+    }
     const video = document.createElement('video');
-    video.src = '../resource/cat.mp4'
-    video.loop = true;
-    video.autoplay = true;
-    // document.body.append(video)
+    navigator.mediaDevices.getUserMedia(constraints)
+        .then((stream) => {
+
+            video.srcObject = stream;
+            // video.src = URL.createObjectURL(stream);
+
+            video.onloadedmetadata = function(e) {
+                video.play().then(() => {
+                    console.log(video)
+                    console.log(video.videoWidth)
+                    setInterval(() => {
+                        console.log(stream.getVideoTracks());
+                        console.log(stream.getVideoTracks()[0].sourceBuffer);
+                    }, 1000)
+
+                })
+
+
+            };
+        }).catch((e) => {
+        console.error(e)
+    });
+    document.body.append(video)
     return video;
+
 }
-
-
-// 按照位判断偶数
-function isPowerOf2(value) {
-    return (value & (value - 1)) === 0;
-}
-
-
+getLive()
 // 加载纹理
 const loadTexture = (gl, n, texture, u_Sampler, image) => {
-
+    // console.log(image)
     // 对纹理图像进行 Y轴 反转
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
     //
@@ -45,7 +66,7 @@ const loadTexture = (gl, n, texture, u_Sampler, image) => {
     //
     // // 将 0号纹理传递给着色器
     gl.uniform1i(u_Sampler, 0);
-    gl.clearColor(0.0, 0.0, 0.0, 0.0);
+    gl.clearColor(0.0, 0.0, 0.0, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT);
 
     gl.drawArrays(gl.TRIANGLE_STRIP, 0, n);
@@ -123,36 +144,52 @@ const textureQuad = () => {
         const u_Sampler = gl.getUniformLocation(gl.program, 'u_Sampler');
         // 顶点个数
         const n = 4;
-        const video = getVideo();
+
+
+        const video = getLive();
+        console.log(video);
         let flag = false;
-        document.body.addEventListener('click', () => {
-            if (flag) return;
-            flag = true;
-            video.play().then(() => {
-                const width = video.videoWidth;
-                const height = video.videoHeight;
-                initVertexBuffers({width, height});
-                const fps = 30;
-                const tick = () => {
-                    loadTexture(gl, n, texture, u_Sampler, video);
-                    // console.log(canvas.toDataURL())
-                    // const image = document.createElement('img');
-                    // image.src = canvas.toDataURL();
-                    // document.body.append(image);
-                    setTimeout(function () {
-                        requestAnimationFrame(tick);
-                    }, 1000 / fps);
-                }
-                // todo 顶点着色器不挂载完之后会有警告
-                // RENDER WARNING: texture bound to texture unit 0 is not renderable. It might be non-power-of-2 or have incompatible texture filtering (maybe)?
-                tick();
-            })
-        })
+
+        const width = video.videoWidth;
+        const height = video.videoHeight;
+        initVertexBuffers({width, height});
+        const fps = 30;
+        const tick = () => {
+            console.log('run this')
+            loadTexture(gl, n, texture, u_Sampler, video);
+            // console.log(canvas.toDataURL())
+            // const image = document.createElement('img');
+            // image.src = canvas.toDataURL();
+            // document.body.append(image);
+            setTimeout(function () {
+                requestAnimationFrame(tick);
+            }, 1000 / fps);
+        }
+        setTimeout(() => {
+            tick();
+        },3000)
+
+
+        // document.body.addEventListener('click', () => {
+        //     if (flag) return;
+        //     flag = true;
+        //     video.play().then(() => {
+        //
+        //         // todo 顶点着色器不挂载完之后会有警告
+        //         // RENDER WARNING: texture bound to texture unit 0 is not renderable. It might be non-power-of-2 or have incompatible texture filtering (maybe)?
+        //         // tick();
+        //     })
+        // })
 
     }
 
     initTextures()
 }
-textureQuad()
+
+// textureQuad()
+
+
+
+
 
 
