@@ -99,9 +99,9 @@ const textureQuad = () => {
         // 全屏
         const verticesTexture = new Float32Array([
             // 顶点坐标, 纹理坐标
-            -vertexWidth, vertexHeight, 0.0, 1.0,
+            -vertexWidth/2, vertexHeight, 0.0, 1.0,
             -vertexWidth,-vertexHeight, 0.0, 0.0,
-            vertexWidth, vertexHeight, 1.0, 1.0,
+            vertexWidth/2, vertexHeight, 1.0, 1.0,
             vertexWidth,-vertexHeight, 1.0, 0.0,
         ]);
 
