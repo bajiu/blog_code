@@ -1,5 +1,6 @@
 ## wasm golang 版
 
+### 注意golang的版本和 wasm_exec.js 的版本得是一样的
 
 编辑 `main.go`
 ```

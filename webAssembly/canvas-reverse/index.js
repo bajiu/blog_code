@@ -1,3 +1,4 @@
+// GOOS=js GOARCH=wasm go build -o revert.wasm main.go
 const cameraVideo = document.createElement('video');
 const showVideo = document.createElement('video');
 const cameraCanvas = document.createElement('canvas');
@@ -59,10 +60,10 @@ const getCameraCanvas = () => {
     const data = imageData.data;
     // console.log(data)
     // console.log(say(data))
-    // const reverseData = say(data);
-    // const arr = new Uint8ClampedArray(reverseData);
-    const arr = reverse(data);
-    // console.log('-------')live-win-box-small
+    const reverseData = say(data);
+    const arr = new Uint8ClampedArray(reverseData);
+    // const arr = reverse(data);
+    // console.log('-------')
     // console.log(arr)
     imageData.data = arr;
     // console.log(imageData)
