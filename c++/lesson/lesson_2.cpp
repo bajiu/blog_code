@@ -38,7 +38,6 @@ int main(int argc, char const *argv[])
 
 
     // 宽字符类型
-    // 为啥打印 M119 ???
     wchar_t ch2 = L'a';
     wcout << ch2 << endl;
 
