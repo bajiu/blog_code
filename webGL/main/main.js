@@ -1,16 +1,10 @@
 /**
- *  2021/06/16
- *  播放视频(顶点视频拉伸)
+ *  2021/10/20
+ *  旗子飘动
  */
 
-const getVideo = () => {
-    const video = document.createElement('video');
-    video.src='../resource/cat.mp4'
-    video.loop = true;
-    video.autoplay = true;
-    // document.body.append(video)
-    return video;
-}
+
+
 
 
 
@@ -57,21 +51,52 @@ const loadTexture = (gl, n, texture, u_Sampler, image) => {
 const textureQuad = () => {
     const VSHADER =
         `
-            attribute vec4 a_Position;
-            attribute vec2 a_Texture;
-            varying vec2 v_Texture;
+            uniform float u_Distance;
+            attribute vec2 a_Position;
+            varying vec2 v_UV;
+            varying float v_Slope;
+            
+            float PI = 3.14159;
+            float scale = 0.8;
+            
             void main() {
-                gl_Position = a_Position;
-                v_Texture = a_Texture;
+            
+              float x = a_Position.x;
+              float y = a_Position.y;
+            
+              float amplitude = 1.0 - scale; // 振幅
+              float period = 2.0;  // 周期
+              float waveLength = 2.0 * scale;
+            
+              v_UV = (mat3(0.625,0,0, 0,0.625,0, 0.5,0.5,1) * vec3(x, y, 1.0)).xy;
+              y += amplitude * ( (x - (-scale)) / waveLength) * sin(2.0 * PI * (x - u_Distance));
+            
+              float x2 = x - 0.001;
+              float y2 = a_Position.y + amplitude * ( (x2 - (-scale)) / waveLength) * sin(2.0 * PI * (x2 - u_Distance));
+            
+              v_Slope = y - y2;
+              gl_Position = vec4(vec2(x, y), 0.0, 1.0);
             }
         `
     const FSHADER =
         `
             precision mediump float;
             uniform sampler2D u_Sampler;
-            varying vec2 v_Texture;
+            varying vec2 v_UV;
+            varying float v_Slope;
+            
             void main() {
-                gl_FragColor = texture2D(u_Sampler, v_Texture);
+              vec4 color = texture2D( u_Sampler, v_UV );
+              if( v_Slope > 0.0 ) {
+                color = mix( color, vec4(0.0, 0.0, 0.0, 1.0), v_Slope * 300.0 );
+              }
+              if( v_Slope < 0.0 ) {
+                color = mix( color, vec4(1.0), abs(v_Slope) * 300.0 );
+              }
+              if(v_UV.x < 0.0 || v_UV.x > 1.0 || v_UV.y < 0.0 || v_UV.y > 1.0) {
+                color.a = 0.0;
+              }
+              gl_FragColor = color;
             }
         `
 
@@ -118,7 +143,10 @@ const textureQuad = () => {
         gl.vertexAttribPointer(a_Texture, 2, gl.FLOAT, false, FSIZE * 4, FSIZE * 2);
         gl.enableVertexAttribArray(a_Texture);
     };
-
+    const width = video.videoWidth;
+    const height = video.videoHeight;
+    initVertexBuffers({width,height});
+    const fps = 30;
 
 
 
@@ -150,7 +178,7 @@ const textureQuad = () => {
 
     }
 
-    initTextures()
+    // initTextures()
 }
 textureQuad()
 
