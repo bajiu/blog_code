@@ -14,3 +14,8 @@
 - webGPU (webGPU 学习)
 
 - c++ (c++学习)
+- electron (electron 学习demo)
+
+- react(react 源码学习demo)
+
+TODO: 25.01前迁移到新管理工具

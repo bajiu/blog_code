@@ -1,0 +1,16 @@
+{
+  "name": "cornerstone3d",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "cornerstone-core": "^2.6.1",
+    "cornerstone-tools": "^6.0.10",
+    "vite": "^5.4.10"
+  }
+}

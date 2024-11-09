@@ -1,0 +1,15 @@
+{
+  "name": "react-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "jsx": "babel --presets @babel/preset-react src/jsx/example1.jsx --out-dir dist"
+  },
+  "author": "bajiu",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.25.9",
+    "@babel/core": "^7.26.0",
+    "@babel/preset-react": "^7.25.9"
+  }
+}
